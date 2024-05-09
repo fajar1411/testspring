@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.testSpring.dto.RequestAmartek;
+import com.example.testSpring.service.ConfirmRegister;
 import com.example.testSpring.service.FajarService;
 
 @Controller
@@ -22,6 +23,9 @@ import com.example.testSpring.service.FajarService;
 public class FajarRestController {
     @Autowired
     private FajarService fajarService;
+
+    @Autowired
+    private ConfirmRegister confirmRegister;
 
     @PostMapping("created")
     public ResponseEntity<Object> createdData(@RequestBody RequestAmartek requestAmartek, HttpServletRequest request)throws MessagingException, UnsupportedEncodingException {
@@ -46,4 +50,9 @@ public class FajarRestController {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
     }  
+
+    @GetMapping("auth/confirm")
+    public ResponseEntity<Object> confirmToken(@RequestParam("token") String token){
+        return confirmRegister.confirmToken(token);
+    }
 }

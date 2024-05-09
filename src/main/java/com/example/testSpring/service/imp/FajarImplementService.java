@@ -136,7 +136,7 @@ public class FajarImplementService implements FajarService {
             trAmartekRepository.save(trAmartek);
             Boolean resultUser = userRepository.findById(amartek.getId()).isPresent();
             if (resultUser) {
-              sendEmailService.sendVerificationEmail(requestAmartek, siteUrl);
+              sendEmailService.confirmRegister(requestAmartek, randomCode);
              
            
                 return CustomResponse.generate(HttpStatus.CREATED, "register Successfully Added");

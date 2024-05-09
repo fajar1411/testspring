@@ -11,4 +11,7 @@ import com.example.testSpring.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT new com.example.testSpring.config.MyUserDetails(a.email, u.password, r.name) FROM User u JOIN u.trAmarteks tr JOIN u.amartek a JOIN tr.role r WHERE a.email = ?1")
     public UserDetails authenticate(String email);
+
+    @Query(value = "SELECT u from User u where u.verificationCode = ?1")
+    public User cekToken(String token);
 }
